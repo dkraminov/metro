@@ -24,7 +24,7 @@ def distance(llat1, llong1, llat2, llong2):
     return dist
 
 
-def json_repr(obj, indent=False):
+def json_repr(obj, indent=None):
     def serialize(obj):
         if isinstance(obj, (bool, int, long, float, basestring)):
             return obj
@@ -41,11 +41,7 @@ def json_repr(obj, indent=False):
             return serialize(obj.__dict__)
         else:
             return repr(obj)
-    if indent:
-        return json.dumps(serialize(obj), indent=indent)
-    else:
-        return json.dumps(serialize(obj))
-
+    return json.dumps(serialize(obj), indent=indent)
 
 class BasicObj(object):
     def __init__(self, id, name):
