@@ -26,7 +26,8 @@ def distance(llat1, llong1, llat2, llong2):
 
 def json_repr(obj, indent=None):
     def serialize(obj):
-        if isinstance(obj, (bool, int, long, float, basestring)):
+        # if isinstance(obj, (bool, int, long, float, basestring)):
+        if isinstance(obj, (bool, int, float, str)):
             return obj
         elif isinstance(obj, dict):
             obj = obj.copy()
@@ -42,6 +43,7 @@ def json_repr(obj, indent=None):
         else:
             return repr(obj)
     return json.dumps(serialize(obj), indent=indent)
+
 
 class BasicObj(object):
     def __init__(self, id, name):
@@ -87,7 +89,7 @@ class Metro(BasicObj):
             for station_id in line.stations:
                 if station_id == id:
                     return line.stations[station_id]
-        print "Cant find station '{}. Halt.'".format(id)
+        print("Cant find station '{}'. Halt.".format(id))
         return False
 
     def FillDefaultTimes(self, metrospeed=41):
@@ -130,7 +132,7 @@ line.AddStation("bezimyanka", "Безымянка", 26, 142, 53.2125790564215, 5
 line.AddStation("kirovskaya", "Кировская", 26, 164, 53.2108054795459, 50.2705860183973)
 line.AddStation("ungorodok", "Юнгородок", 26, 188, 53.2122381393962, 50.2818923630551)
 samara.FillDefaultTimes()
-print "Samara, {} stations".format(samara.station_count)
+print("Samara, {} stations".format(samara.station_count))
 
 novosib = Metro('novosibirsk', 'Новосибирск', 'Новосибирска')
 line1 = novosib.AddLine('leninskaya_liniya', 'Ленинская линия', 'ed1c24')
@@ -150,7 +152,7 @@ line2.AddStation("berezovaya_rosha", "Березовая Роща", 196, 54, 55.
 line2.AddStation("zolotaya_niva", "Золотая Нива", 221, 54, 55.03714, 82.976991)
 novosib.AddChange('krasnii_prospekt', 'sibirskaya', 180)
 novosib.FillDefaultTimes()
-print "Novosib, {} stations".format(novosib.station_count)
+print("Novosib, {} stations".format(novosib.station_count))
 
 kazan = Metro('kazan', 'Казань', 'Казани')
 line = kazan.AddLine('centralnaya_liniya', 'Центральная линия', '009854')
@@ -162,7 +164,7 @@ line.AddStation("ametevo", "Аметьево", 25, 96, 55.7651798821464, 49.1664
 line.AddStation("gorki", "Горки", 25, 120, 55.7602495334154, 49.1903547256175)
 line.AddStation("prospekt_pobedi", "Проспект Победы", 25, 141, 55.7499520906488, 49.2085103667662)
 kazan.FillDefaultTimes()
-print "Kazan, {} stations".format(kazan.station_count)
+print("Kazan, {} stations".format(kazan.station_count))
 
 eburg = Metro('eburg', 'Екатеринбург', 'Екатеринбурга')
 line = eburg.AddLine('uralskaya_liniya', 'Уральская линия', '009854')
@@ -175,7 +177,7 @@ line.AddStation("ploshad_1905_goda", "Площадь 1905 года", 8, 140, 56.
 line.AddStation("geologicheskaya", "Геологическая", 8, 163, 56.82744226647, 60.603072576321)
 line.AddStation("botanicheskaya", "Ботаническая", 8, 186, 56.797778, 60.630833)
 eburg.FillDefaultTimes(43)
-print "Eburg, {} stations".format(eburg.station_count)
+print("Eburg, {} stations".format(eburg.station_count))
 
 nn = Metro('nn', 'Нижний Новгород', 'Нижнего Новогорода')
 line1 = nn.AddLine('avtozavodskaya_liniya', 'Автозаводская линия', 'ed1c24')
@@ -197,7 +199,7 @@ line2.AddStation("kanavinskaya", "Канавинская", 108, 107, 56.32033574
 line2.AddStation("moskovskaya_zel", "Московская (Зеленая)", 157, 61, 56.3213240515983, 43.9455284486623)
 nn.AddChange('moskovskaya_kr', 'moskovskaya_zel', 100)
 nn.FillDefaultTimes(43)
-print "NN, {} stations".format(nn.station_count)
+print("NN, {} stations".format(nn.station_count))
 
 piter = Metro("piter", "Санкт-Петербург", 'Санкт-Петербурга')
 line = piter.AddLine('kirov', 'Кировско-Выборгская линия', 'ed1c24')
@@ -282,7 +284,7 @@ piter.AddChange('dostoevskaya', 'vladimirskaya', 180)
 piter.AddChange('tehnologicheskii_instityt_kvl', 'tehnologicheskii_instityt_mosk', 180)
 piter.AddChange('zvenigorodskaya', 'pyshkinskaya', 180)
 piter.FillDefaultTimes(39)
-print "Piter, {} stations".format(piter.station_count)
+print("Piter, {} stations".format(piter.station_count))
 
 moscow = Metro("moscow", "Москва", 'Москвы')
 line = moscow.AddLine('sokolnicheskaya_liniya', 'Сокольническая линия', 'ed1c24')
@@ -545,7 +547,7 @@ line.AddStation("vistavochnaya", "Выставочная", 159, 388, 55.75019788
 line.AddStation("mejdynarodnaya", "Международная", 159, 364, 55.7483038053698, 37.5334603045829)
 moscow.AddTime('kievskaya_fil', 'vistavochnaya')
 moscow.AddTime('vistavochnaya', 'mejdynarodnaya')
-print "Moscow, {} stations".format(moscow.station_count)
+print("Moscow, {} stations".format(moscow.station_count))
 
 try:
     os.mkdir('json')
